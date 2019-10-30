@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
+
+import 'network_status.dart';
 
 class Home extends StatefulWidget {
   Home() : super();
@@ -15,9 +18,9 @@ class HomeState extends State<Home> {
     final shortestSide = MediaQuery.of(context).size.shortestSide;
     final isMobileLayout = shortestSide<600;
     final orientation = MediaQuery.of(context).orientation;
-
-
-    return Scaffold(
+    // Get our connection status from the provider
+   // var connectionStatus = Provider.of<ConnectivityStatus>(context);
+        return Scaffold(
       appBar: AppBar(
         title: Text("Freestyle"),
       ),
@@ -25,6 +28,14 @@ class HomeState extends State<Home> {
           ? phoneUI(orientation)
           : tabletUI(orientation),
     );
+//    return Scaffold(
+//      appBar: AppBar(
+//        title: Text("Freestyle"),
+//      ),
+//      body: connectionStatus == ConnectivityStatus.WiFi
+//          ? phoneUI(orientation)
+//          : connectionStatus == ConnectivityStatus.Cellular? tabletUI(orientation):offlineUI(orientation),
+//    );
   }
 }
 
@@ -37,5 +48,10 @@ phoneUI(Orientation orientation) {
 tabletUI(Orientation orientation) {
   return Container(
     color: Colors.green,
+  );
+}
+offlineUI(Orientation orientation) {
+  return Container(
+    color: Colors.black,
   );
 }
